@@ -16,13 +16,6 @@ spleen (7,376 cells) and tumor (1,803 cells) of 4T1, EMT6, and non-tumor-bearing
 mice using PAGA and diffusion pseudotime. The combined dataset contains 9,179
 neutrophils across 11 cell types.
 
-**Key findings:**
-- Tumor neutrophils (Mature_TAN, Il1bhi_TAN, Ccl3hi_GMDSC, GMDSC) occupy late
-  pseudotime positions (median PT = 0.96–0.98), consistent with mature/terminal states
-- PAGA reveals distinct lineage relationships: Mature_TAN ↔ Act. Neu;
-  Il1bhi_TAN ↔ IFN Neu; GMDSC cluster forms a tight inter-tumor hub
-- Both 4T1 and EMT6 models drive identical TAN/GMDSC composition (all FDR = 0.87)
-
 ---
 
 ## Directory Structure
@@ -41,8 +34,8 @@ neutrophil_trajectory_analysis/
 ├── scripts/
 │   ├── 01_seurat_export.R             # Step 1: Export Seurat → flat files
 │   ├── 02_build_anndata.py            # Step 2: Build AnnData from flat files
-│   ├── 03_trajectory_analysis.py      # Step 3: PAGA + pseudotime
-│   ├── 04_generate_figures.py         # Step 4: All figures
+│   ├── 03_trajectory_analysis_v2.py      # Step 3: PAGA + pseudotime
+│   ├── 04_generate_figures_v2.py         # Step 4: All figures
 │   └── 05_statistical_comparisons.py  # Step 5: Statistical tests
 │
 ├── results/                           # CSV result tables (provided)
@@ -170,9 +163,9 @@ python scripts/05_statistical_comparisons.py
 | IFN Neu | Spleen | 363 | IFN-stimulated terminal state |
 | Inflam. Neu | Spleen | 3,151 | Inflammatory terminal state |
 | Mature_TAN | Tumor | 198 | Mature tumor-associated neutrophil |
-| Il1bhi_TAN | Tumor | 553 | IL-1β-high inflammatory TAN |
-| Ccl3hi_GMDSC | Tumor | 773 | CCL3-high G-MDSC |
-| GMDSC | Tumor | 279 | Immunosuppressive G-MDSC |
+| Il1bhi_TAN | Tumor | 553 | IL-1β^high inflammatory tumor-associated neutrophil |
+| Ccl3hi_TAN | Tumor | 773 | CCL3^high tumor-associated neutrophil |
+| Cxcr2hi_TAN | Tumor | 279 | Cxcr2^high tumor-associated neutrophil |
 
 ---
 
@@ -203,29 +196,6 @@ python scripts/05_statistical_comparisons.py
 - **Pseudotime comparisons**: Mann-Whitney U test, FDR correction (Benjamini-Hochberg)
 - **Composition comparisons**: Fisher's exact test, FDR correction (Benjamini-Hochberg)
 - **Effect size**: Rank-biserial correlation r (r=0.1 small, 0.3 medium, 0.5 large)
-
----
-
-## Important Caveats
-
-1. **EMT6 tumor cells are sparse** (n=158 total; n=14–69 per cell type).
-   Composition comparisons are adequately powered (can detect OR≥1.5–2.0),
-   but pseudotime and DE comparisons between 4T1 and EMT6 tumor cells should
-   be treated as exploratory.
-
-2. **Tumor cells form a distinct UMAP island** despite Harmony integration,
-   reflecting genuine TME-specific transcriptional programs. PAGA connectivity
-   (graph-based) is more reliable than UMAP distances for trajectory inference.
-
-3. **No RNA velocity**: Spliced/unspliced counts are not available in this
-   object. Pseudotime directionality is inferred from diffusion pseudotime
-   rooted at the proliferating precursor population.
-
----
-
-## Contact
-
-[Your name and contact information]
 
 ---
 
