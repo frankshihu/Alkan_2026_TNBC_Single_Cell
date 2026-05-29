@@ -4,8 +4,8 @@
 This repository contains all code and data required to reproduce the neutrophil
 trajectory analysis from:
 
-> **[Your manuscript title]**  
-> [Authors], [Journal], [Year]
+> **Divergent Myeloid Programming by Metastatic and Non_Invasive TNBC Shapes Systemic Immunity and Therapeutic Response **  
+> Alkan FK, et al, 2026
 
 ---
 
